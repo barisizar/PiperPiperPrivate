@@ -15,22 +15,21 @@ const HomeScreen = ({ navigation }) => {
         <Text style={{fontSize:44, fontWeight:'bold', color:'white'}} >
         Hello</Text>
         <Text style={{fontSize:24, color:'gray', textAlign:'center', marginHorizontal: 20}} >
-        Welcome to Pied Piper sign in to walk and win!</Text>
-        <View style={{padding:'10', flexDirection:'row', margin:20, paddingVertical:20}}>
+        Welcome to Piper!
+        Best dating app of 2021!</Text>
+        <View style={{ flexDirection:'row', margin:20, paddingVertical:20}}>
             <TouchableOpacity
             onPress={() => navigation.navigate('Login')}
-            style={{marginRight: 3, width:"45%", backgroundColor:"#28a628", borderRadius:25, height:50, alignItems:"center", justifyContent:"center", marginTop:40, marginBottom:10}}>
+            style={{marginRight: 3, width:"45%", backgroundColor:"#042494", borderRadius:25, height:50, alignItems:"center", justifyContent:"center", marginTop:40, marginBottom:10}}>
                 <Text style={{textAlign:'center', fontSize: 18, fontWeight:'bold', color:'white'}}>LOGIN </Text>
             </TouchableOpacity>
             <TouchableOpacity
-            onPress={() => navigation.navigate('SignUp')}
-            style={{marginLeft: 3, width:"45%", backgroundColor:"#28a628", borderRadius:25, height:50, alignItems:"center", justifyContent:"center", marginTop:40, marginBottom:10}}>
+            onPress={() => navigation.navigate('Sign Up')}
+            style={{marginLeft: 3, width:"45%", backgroundColor:"#042494", borderRadius:25, height:50, alignItems:"center", justifyContent:"center", marginTop:40, marginBottom:10}}>
                 <Text style={{textAlign:'center', fontSize: 18, fontWeight:'bold', color:'white'}}>Sign Up</Text>
             </TouchableOpacity>
         </View>
-        <TouchableOpacity>
-        <Text style={{fontSize:19, color:'gray', textAlign:'center', marginHorizontal: 20}}>Forgot Password?</Text>
-      </TouchableOpacity>
+        
         </View>
     );
 };
@@ -39,10 +38,11 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#003f5c',
+      backgroundColor: '#2d1742',
       alignItems: 'center',
       justifyContent: 'center',
     },
+    
   });
 
 export default HomeScreen;
