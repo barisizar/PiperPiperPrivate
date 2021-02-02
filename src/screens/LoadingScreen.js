@@ -10,13 +10,13 @@ export class LoadingScreen extends Component  {
         spinner: false
       };
     }
-    //   componentDidMount() {
-    //     setInterval(() => {
-    //       this.setState({
-    //         spinner: !this.state.spinner
-    //       });
-    //     }, 3000);
-    //   }
+      componentDidMount() {
+        setInterval(() => {
+          this.setState({
+            spinner: !this.state.spinner
+          });
+        }, 3000);
+      }
     render() {
         return (
             <Spinner

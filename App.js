@@ -1,20 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from './src/screens/redux/reducers'
+import thunk from 'redux-thunk'
+const store = createStore(rootReducer, applyMiddleware(thunk))
+
 import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import BottomTabNavigator from './src/screens/Main/Navigation';
 import HomeScreen from './src/screens/HomeScreen.js';
 import LoginScreen from './src/screens/LoginScreen.js';
 import SignUpScreen from './src/screens/SignUpScreen.js';
-import MainPage from './src/screens/Main/MainPage';
 import LoadingScreen from './src/screens/LoadingScreen.js';
 
 import * as firebase from 'firebase'
+import "firebase/firestore";
 import { render } from 'react-native-web';
-
+import Chats from './src/screens/Main/Chats';
+import MainPage from './src/screens/Main/MainPage';
+import Profile from './src/screens/Main/Profile';
 
 const Stack = createStackNavigator();
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAtc5ITYl7p5gy94IVu_rehwdSE6V89g24",
@@ -30,10 +39,14 @@ const firebaseConfig = {
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig)
 }
+
 export class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      email:'',
+      name:'',
+      uid:'',
       loaded: false,
     }
   }
@@ -56,17 +69,14 @@ export class App extends Component {
     const { loggedIn, loaded } = this.state;
     if (!loaded) {
       return (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-    //     <NavigationContainer>
-    //   <Stack.Navigator>
+        <NavigationContainer>
+      <Stack.Navigator>
  
-    //     <Stack.Screen name="Loading" component={LoadingScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Loading" component={LoadingScreen} options={{ headerShown: false }}/>
         
 
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+      </Stack.Navigator>
+    </NavigationContainer>
       )
     }
 
@@ -83,14 +93,17 @@ export class App extends Component {
     </NavigationContainer>
   );
 };
-return (
 
+return (
+  <Provider store={store}>
   <NavigationContainer >
-    <Stack.Navigator initialRouteName="Main">
-      <Stack.Screen name="Main" component={MainPage}  options={{ headerShown: false }} />
+    <Stack.Navigator initialRouteName="MainPage">
+      <Stack.Screen name="Navigator" component={BottomTabNavigator} navigation={this.props.navigation} options={{ headerShown: false }}/>
+      <Stack.Screen name="Chats" component={Chats} navigation={this.props.navigation}/>
+      <Stack.Screen name="Profile" component={Profile} navigation={this.props.navigation}/>
     </Stack.Navigator>
   </NavigationContainer>
-
+</Provider>
 )
   }
 }

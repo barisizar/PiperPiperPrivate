@@ -1,34 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Image, TextInput,Button, TouchableOpacity} from 'react-native';
-
-
-import firebase from 'firebase'
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export class SignUpScreen extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             email: '',
             password: '',
             name: ''
         }
-
-        this.onSignUp = this.onSignUp.bind(this)
     }
-
+    
     onSignUp() {
         const { email, password, name } = this.state;
+        
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((result) => {
                 firebase.firestore().collection("users")
                     .doc(firebase.auth().currentUser.uid)
                     .set({
-                        name,
-                        email
+                        name:name,
+                        email:email,
+                        // uid:firebase.auth().currentUser.uid
                     })
-                console.log(result)
+                console.log(firebase.auth().currentUser.uid)
             })
             .catch((error) => {
                 console.log(error)
