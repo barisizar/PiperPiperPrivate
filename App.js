@@ -14,7 +14,7 @@ import HomeScreen from './src/screens/HomeScreen.js';
 import LoginScreen from './src/screens/LoginScreen.js';
 import SignUpScreen from './src/screens/SignUpScreen.js';
 import LoadingScreen from './src/screens/LoadingScreen.js';
-
+import EditScreen from './src/screens/Main/EditScreen'
 import * as firebase from 'firebase'
 import "firebase/firestore";
 import { render } from 'react-native-web';
@@ -101,6 +101,7 @@ return (
       <Stack.Screen name="Navigator" component={BottomTabNavigator} navigation={this.props.navigation} options={{ headerShown: false }}/>
       <Stack.Screen name="Chats" component={Chats} navigation={this.props.navigation}/>
       <Stack.Screen name="Profile" component={Profile} navigation={this.props.navigation}/>
+      <Stack.Screen name="EditScreen" component={EditScreen} navigation={this.props.navigation}/>
     </Stack.Navigator>
   </NavigationContainer>
 </Provider>
