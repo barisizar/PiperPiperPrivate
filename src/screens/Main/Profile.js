@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import React, { useState, useEffect } from 'react'
+import {View, SafeAreaView,Image,StyleSheet,TouchableOpacity } from 'react-native';
 import {
   Avatar,
   Title,
@@ -7,10 +7,26 @@ import {
   Text,
   TouchableRipple,
 } from 'react-native-paper';
+import firebase from 'firebase';
+import 'firebase/firestore';
+import EditScreen from './EditScreen';
+import { NavigationContainer } from '@react-navigation/native';
 
 
+const ProfileScreen = ({navigation}) => {
+  const [name, setName] = useState('');
+useEffect(() => {
 
-const ProfileScreen = () => {
+  firebase.firestore().collection("users").doc('6aEgg4fSLiUjvYNIL1N8LZiGPau2')
+  .onSnapshot(function(snapshot) {
+    setName(snapshot.name)
+    console.log(snapshot)
+  }
+
+      );
+}, []);
+
+                        
 
   const myCustomShare = async() => {
     const shareOptions = {
@@ -35,8 +51,8 @@ const ProfileScreen = () => {
             <Title style={[styles.title, {
               marginTop:15,
               marginBottom: 5,
-            }]}>John Doe</Title>
-            <Caption style={styles.caption}>@j_doe</Caption>
+            }]}>{name}</Title>
+            
           </View>
         </View>
       </View>
@@ -60,8 +76,12 @@ const ProfileScreen = () => {
             <Caption>-</Caption>
           </View>
           <View style={styles.infoBox}>
-            <Title>12</Title>
-            <Caption>Social Media</Caption>
+            <Title>Social Media</Title>
+            <Image
+              source={{ uri: 'https://cdn1.iconfinder.com/data/icons/social-media-outline-6/128/SocialMedia_Instagram-Outline-512.png' }}
+              style={{ width:30, height:30}}
+
+            />
           </View>
       </View>
 
@@ -73,7 +93,7 @@ const ProfileScreen = () => {
         </TouchableRipple>
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
-            <Text style={styles.menuItemText}>Favorite Movies:</Text>
+            <Text style={styles.menuItemText}>Gender:</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={myCustomShare}>
@@ -91,8 +111,14 @@ const ProfileScreen = () => {
           <View style={styles.menuItem}>
             
             <Text style={styles.menuItemText}>Settings</Text>
-          </View>
+          </View>  
         </TouchableRipple>
+        <TouchableOpacity 
+                onPress={() => navigation.navigate('EditScreen')}
+                style={{marginLeft: 3, width:"45%", backgroundColor:"#042494", borderRadius:25, height:50, alignItems:"center", justifyContent:"center", marginTop:40, marginBottom:10}}>
+                    <Text>Edit Your Profile</Text>
+            </TouchableOpacity>
+
       </View>
     </SafeAreaView>
   );
